@@ -16,6 +16,13 @@ body
     min-height: 100vh;
 }
 
+main
+{
+  display: flex;
+
+  flex: 1;
+}
+
 .map
 {
   width: 100%;

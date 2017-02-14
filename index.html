@@ -13,8 +13,7 @@
 
 <body>
     <main>
-        <iframe class="map" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCxGn-Wu-47IF8qdt0B7TB1rWdyARgthGg&q=Northampton" allowfullscreen>
-  </iframe>
+        <div id="map" class="map"></div>
     </main>
     <aside class="">
         <span><i class="fa fa-bus" aria-hidden="true"></i>Bus stop: "name"</span>
@@ -26,6 +25,9 @@
           <li>Bus5</li>
         </ul>
     </aside>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7WluhIDRtJqac_gtcALqmhfnVHtXt-Hw&callback=initMap">
+    </script>
 </body>
 
 </html>
