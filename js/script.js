@@ -1,4 +1,3 @@
-// initMap();
 function initMap()
 {
   var testMark = {lat: 52.2429457, lng: -0.901148};
@@ -11,16 +10,17 @@ function initMap()
   var trafficLayer = new google.maps.TrafficLayer();
   // trafficLayer.setMap(map);
 
-  // Initial Bus location
+  /* Initial Bus location */
   var marker = new google.maps.Marker({
   position: {lat: 52.2428457, lng: -0.901148},
   label: "197",
   title: "test"
-});
+  });
 
   var t = marker.position;
   var k = JSON.parse(JSON.stringify(t));
   // console.log("Lat " + testMark.lat);
+  /* Place this individual marker on the map */
   marker.setMap(map);
   //console.log(JSON.stringify(marker.position));
   var testLat = testMark.lat;
@@ -30,8 +30,6 @@ function initMap()
     // console.log(testLat);
     moveMarker(map, marker, testLat);
   }, 1000)
-
-
 }
 
 /* Moves the marker to the updated Location */
@@ -43,20 +41,19 @@ function moveMarker(map, marker, g)
   console.log("Center is: ", currentLat + " : " + currentLng);
   console.log("Current Position is: " + updatedPosition);
 
-  //Place this individual marker on the map
-  // marker.setMap(map);
-  // map.panTo(updatedPosition);
+
+  map.panTo(updatedPosition);
   marker.setPosition(updatedPosition);
 
-  //Reset the center to the new location.
+  /* Reset the center to the new location. */
   // map.setCenter(marker.getPosition());
 }
 
 requestResponse();
 function requestResponse()
 {
-  var READY_STATE_DONE = 4; //request finished and response is ready
-  var SUCCESS          = 200; //"OK"
+  var READY_STATE_DONE = 4; /* request finished and response is ready */
+  var SUCCESS          = 200; /* "OK" */
 
   setInterval(function(){
     var request = new XMLHttpRequest();
