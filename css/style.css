@@ -27,3 +27,20 @@ main
 {
   width: 100%;
 }
+
+#test
+{
+  width: 300px;
+  height: 500px;
+  position: absolute;
+  overflow: scroll;
+  background-color: rgba(50, 50, 50, 0.5);
+  color: white;
+}
+#test h3
+{
+  color: black;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
