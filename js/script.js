@@ -1,89 +1,181 @@
+/* Initialise Google Maps */
 function initMap()
 {
-    var testMark = {
-        lat: 52.2429457,
-        lng: -0.901148
-    };
-    var map = new google.maps.Map(document.getElementById('map'),
-    {
-        zoom: 15,
-        disableDefaultUI: true,
-        center:
-        {
-            lat: 52.2429457,
-            lng: -0.901148
+  var testMark = {lat: 52.2429457, lng: -0.901148};
+
+  var center = {lat: 52.239596, lng: -0.8983567};
+
+  // var positions = [testMark,center];
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 14,
+    disableDefaultUI: true,
+    center: center
+  });
+
+  var trafficLayer = new google.maps.TrafficLayer();
+  trafficLayer.setMap(map);
+
+  /* Initial Bus location */
+  var markerCurrentBusStop = new google.maps.Marker({
+  position: center,
+  label:{
+          text: "YOU ARE HERE",
+          fontWeight: "900",
+          color: "black"
         }
-    });
+  });
 
-    var trafficLayer = new google.maps.TrafficLayer();
-    // trafficLayer.setMap(map);
+  /* Create a marker for each bus using bus ID.
+   * Update each bus location on the map   */
+  var markerBus = new google.maps.Marker({
+  position: new google.maps.LatLng(52.240455, -0.8866247),
+  label: {text: "Bus", fontWeight: "900", color: "black"},
+  title: ""
+  });
 
-    /* Initial Bus location */
-    var marker = new google.maps.Marker(
-    {
-        position:
-        {
-            lat: 52.2428457,
-            lng: -0.901148
-        },
-        label: "197",
-        title: "test"
-    });
+  // var g = google.maps.MarkerLabel({color: "red"});
 
-    var t = marker.position;
-    var k = JSON.parse(JSON.stringify(t));
-    // console.log("Lat " + testMark.lat);
-    /* Place this individual marker on the map */
-    marker.setMap(map);
-    //console.log(JSON.stringify(marker.position));
-    var testLat = testMark.lat;
-    var timer = setInterval(function()
-    {
-        testLat += 0.00001;
-        // console.log(testLat);
-        moveMarker(map, marker, testLat);
-    }, 1000);
+  markerCurrentBusStop.setMap(map);
+  markerBus.setMap(map);
+  // console.log(positions[0]);
+  requestResponse(map, markerBus);
 }
 
-/* Moves the marker to the updated Location */
-function moveMarker(map, marker, g)
+/*
+ * Queries the server to update bus data
+ * @param map - Google maps object for use in moveMarker parameter
+ * @param marker - Google maps marker object for use in moveMarker parameter
+*/
+var latestBusEntryId = 7;
+function requestResponse(map, marker)
+{
+  var READY_STATE_DONE =   4; /* request finished and response is ready */
+  var SUCCESS          = 200; /* "OK" */
+  var debugWindow      = document.getElementById("debugWindow");
+  var information      = document.getElementsByClassName("information");
+  var test      = document.getElementById("test");
+
+  setInterval(function()
+  {
+    var request = new XMLHttpRequest();
+
+    request.onreadystatechange = function()
+    {
+      if(this.readyState == READY_STATE_DONE && this.status == SUCCESS)
+      {
+        try
+        {
+          /* Convert text to JSON object*/
+          var response   = JSON.parse(request.responseText);
+          var lng        = response.longitude;
+          var lat        = response.latitude;
+          var position   = {lng, lat};
+          var busId      = response.busid;
+          var responseId = parseInt(response.id);
+          latestEntryId = responseId;
+          // test.innerHTML = "HI";
+          debugWindow.innerHTML = "<h3>Debug Window</h3><br>" + response.id;
+
+          /* Set the marker label to the corresponding bus number */
+          // marker.setLabel("Bus ID: " + busId + ". Bus Number: " + response.number);
+          marker.setLabel({
+                           text: "Bus ID: " + busId + ". Bus Number: " + response.number,
+                           fontWeight: "900",
+                           color: "black"
+                         });
+          moveMarker(map, marker, position);
+        }
+        catch (e)
+        {
+          if(e instanceof TypeError)
+          {
+            console.log(e);
+          }
+          else if(e instanceof SyntaxError)
+          {
+            console.log(e);
+          }
+
+        }
+        /* This is to test how the marker moves along the map
+         * by artificially stepping through the database id's
+        */
+        latestBusEntryId++;
+        if(latestBusEntryId == 102)
+        {
+          latestBusEntryId = 105;
+        }
+        console.log(latestBusEntryId);
+      }
+    }
+    request.open("POST", "busData.php?ask=" + latestBusEntryId, true);
+    request.send();
+
+  }, 1000)
+
+}
+
+/*
+ * Moves the marker to the updated Location
+ * @param map - Google maps object
+ * @param marker - Google maps marker object
+ * @param position - lat and lng as an object e.g{1234, -1234}
+*/
+function moveMarker(map, marker, position)
 {
     var currentLat = marker.getPosition().lat();
     var currentLng = marker.getPosition().lng();
-    var updatedPosition = new google.maps.LatLng(g, -0.901148);
-    console.log("Center is: ", currentLat + " : " + currentLng);
-    console.log("Current Position is: " + updatedPosition);
+    var updatedPosition = new google.maps.LatLng(position.lat, position.lng);
 
-
-    map.panTo(updatedPosition);
     marker.setPosition(updatedPosition);
-
+    // map.panTo(updatedPosition);
     /* Reset the center to the new location. */
     // map.setCenter(marker.getPosition());
+
+    // console.log(position);
+    // console.log("Center is: ", currentLat + " : " + currentLng);
+    console.log("Current Position is: " + updatedPosition);
+    // console.log("l: " + position.lng)
 }
 
-requestResponse();
 
-function requestResponse()
+/*
+ * Displays the current time in the information board.
+*/
+function showTime()
 {
-    var READY_STATE_DONE = 4; /* request finished and response is ready */
-    var SUCCESS = 200; /* "OK" */
+  setInterval(function()
+  {
+    var time = document.getElementById("time");
+    var now   = new Date();
+    var hours = now.getHours();
+    var mins  = now.getMinutes();
+    var secs  = now.getSeconds();
 
-    setInterval(function()
-    {
-        var request = new XMLHttpRequest();
-        request.onreadystatechange = function()
-        {
-            if (this.readyState == READY_STATE_DONE && this.status == SUCCESS)
-            {
-                var response = this.responseText;
-                console.log(request.responseText);
-                document.getElementById("test").innerHTML += "<br>" + response;
-            }
-        };
-        request.open("GET", "busData.php", true);
-        request.send();
-
-    }, 3000);
-
+    time.innerHTML = (zeroPad(hours) + ":" + zeroPad(mins) + ":" + zeroPad(secs));
+    // console.log(hours + ":" + mins + ":" + secs);
+    // console.log(typeof(secs));
+  }, 1000)
 }
+
+/*
+ * Pads the hours, mins and seconds with one zero when the
+ * passed figure is less than 10. e.g 6 seconds beomes 06.
+*/
+function zeroPad(t)
+{
+  var timeElem = t;
+  if(timeElem < 10)
+  {
+    timeElem = timeElem.toString();
+    timeElem = "0" + timeElem;
+  }
+
+  // console.log("Time ELem: " + timeElem);
+  // console.log("Time type: " + typeof(timeElem));
+
+  return timeElem;
+}
+
+showTime();

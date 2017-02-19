@@ -11,7 +11,7 @@ body
     font-weight: 300;
 
     display: flex;
-    flex-flow: row wrap;
+    flex-direction: column;
 
     min-height: 100vh;
 }
@@ -19,6 +19,7 @@ body
 main
 {
   display: flex;
+  flex: 1;
 }
 
 h2
@@ -28,25 +29,45 @@ h2
 
 .map
 {
-  width: 80vw;
-  height: 80vh;
+  flex: 5;
 }
 
 .information
 {
-  width: 20vw;
-  height: 80vh;
+  flex: 1;
   background: rgb(96, 91, 91);
 }
 
-.test
+.moreInfo
 {
-  width: 100vw;
-  height: 20vh;
-  background: rgb(18, 113, 13);
+  display: flex;
 }
 
 #test
+{
+  flex: 1;
+  width: 80vw;
+  height: 20vh;
+  background: rgba(18, 113, 13, 1);
+  color: white;
+}
+
+#debugWindow
+{
+  width: 300px;
+  height: 500px;
+  position: absolute;
+  overflow: scroll;
+  background-color: rgba(50, 50, 50, 0.5);
+  color: white;
+}
+
+#debugWindow h3
+{
+  text-align: center;
+}
+
+/*#test
 {
   width: 300px;
   height: 500px;
@@ -61,4 +82,4 @@ h2
   margin: 0;
   padding: 0;
   text-align: center;
-}
+}*/
