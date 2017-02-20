@@ -8,7 +8,7 @@ function initMap()
   // var positions = [testMark,center];
 
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 14,
+    zoom: 16,
     disableDefaultUI: true,
     center: center
   });
@@ -108,11 +108,11 @@ function requestResponse(map, marker)
         }
         console.log(latestBusEntryId);
       }
-    }
+    };
     request.open("POST", "busData.php?ask=" + latestBusEntryId, true);
     request.send();
 
-  }, 1000)
+  }, 1000);
 
 }
 
@@ -156,7 +156,7 @@ function showTime()
     time.innerHTML = (zeroPad(hours) + ":" + zeroPad(mins) + ":" + zeroPad(secs));
     // console.log(hours + ":" + mins + ":" + secs);
     // console.log(typeof(secs));
-  }, 1000)
+  }, 1000);
 }
 
 /*
