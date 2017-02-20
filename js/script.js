@@ -80,7 +80,7 @@ function requestResponse(map, marker)
           /* Set the marker label to the corresponding bus number */
           // marker.setLabel("Bus ID: " + busId + ". Bus Number: " + response.number);
           marker.setLabel({
-                           text: "Bus ID: " + busId + ". Bus Number: " + response.number,
+                           text: "Bus Number: " + response.number,
                            fontWeight: "900",
                            color: "black"
                          });
