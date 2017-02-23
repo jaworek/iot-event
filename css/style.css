@@ -18,53 +18,62 @@ body
 
 main
 {
-  display: flex;
-  flex: 1;
+    display: flex;
+
+    border-bottom: 3px solid;
+
+    flex: 1;
 }
 
 h2
 {
-  text-align: center;
+    text-align: center;
 }
 
 .map
 {
-  flex: 5;
+    flex: 5;
 }
 
 .information
 {
-  flex: 1;
-  background: rgb(96, 91, 91);
+    flex: 1;
 }
 
 .moreInfo
 {
-  display: flex;
+    display: flex;
+
+    height: 20vh;
+
+    justify-content: space-around;
 }
 
-#test
+.advert
 {
-  flex: 1;
-  width: 80vw;
-  height: 20vh;
-  background: rgba(18, 113, 13, 1);
-  color: white;
+    width: 30vw;
+    height: 20vh;
+
+    color: white;
+    background: black;
 }
 
 #debugWindow
 {
-  width: 300px;
-  height: 500px;
-  position: absolute;
-  overflow: scroll;
-  background-color: rgba(50, 50, 50, 0.5);
-  color: white;
+    position: absolute;
+
+    overflow: scroll;
+
+    width: 300px;
+    height: 500px;
+
+    color: white;
+    background-color: rgba(50, 50, 50, .5);
 }
 
 #debugWindow h3
 {
-  text-align: center;
+    text-align: center;
 }
 
 /*#test

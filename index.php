@@ -40,8 +40,14 @@ require("dbCredentials.php");
   </main>
 
   <div class="moreInfo">
-    <div id="test">
-      <h3>More Info</h3>
+    <div class="advert" id="bottom">
+      advert
+    </div>
+    <div class="advert">
+      advert
+    </div>
+    <div class="advert">
+      advert
     </div>
   </div>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7WluhIDRtJqac_gtcALqmhfnVHtXt-Hw&callback=initMap"></script>
