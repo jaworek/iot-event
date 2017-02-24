@@ -38,7 +38,7 @@ require("dbCredentials.php");
           <table>
             <tr>
               <th>Bus Num</th>
-              <th>Disabled Access Available</th>
+              <th>Disabled Access Availability</th>
               <th>Time to Arrive</th>
             </tr>
             <tr>
