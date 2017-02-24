@@ -54,7 +54,7 @@ function initMap()
     markerCurrentBusStop.setMap(map);
     markerBus.setMap(map);
     // console.log(positions[0]);
-    requestResponse(map, markerBus);
+    requestResponse(map, markerCurrentBusStop, markerBus);
 }
 
 /*
@@ -64,7 +64,7 @@ function initMap()
  */
 var latestBusEntryId = 7;
 
-function requestResponse(map, marker)
+function requestResponse(map, busStop, marker)
 {
     var READY_STATE_DONE = 4; /* request finished and response is ready */
     var SUCCESS = 200; /* "OK" */

@@ -52,7 +52,8 @@ h2
 .advert
 {
     width: 30vw;
-    height: 20vh;
+    height: 19vh;
+    margin: .5vh;
 
     color: white;
     background: black;
