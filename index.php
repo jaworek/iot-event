@@ -51,8 +51,14 @@ require("dbCredentials.php");
   </main>
 
   <div class="moreInfo">
-    <div id="test">
-      <h3>More Info</h3>
+    <div class="advert" id="bottom">
+      <img src="images/1.jpg" alt="">
+    </div>
+    <div class="advert">
+      <img src="images/2.jpg" alt="">
+    </div>
+    <div class="advert">
+      <img src="images/3.jpg" alt="">
     </div>
   </div>
   <!-- johns api = AIzaSyB7WluhIDRtJqac_gtcALqmhfnVHtXt-Hw -->
