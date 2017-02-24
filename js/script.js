@@ -46,10 +46,10 @@ function initMap()
  * @param marker - Google maps marker object for use in moveMarker parameter
 */
 var latestBusEntryId = 7;
-var nextBus = "nextbus";
+
 function requestResponse(map, marker, markerBusStop)
 {
-  var READY_STATE_DONE     =   4; /* request finished and response is ready */
+  var READY_STATE_DONE     = 4; /* request finished and response is ready */
   var SUCCESS              = 200; /* "OK" */
   var debugWindow          = document.getElementById("debugWindow");
   var information          = document.getElementsByClassName("information");
@@ -57,6 +57,7 @@ function requestResponse(map, marker, markerBusStop)
   var timeToArrive         = document.getElementById('timeToArrive');
   var busNumber            = document.getElementById('busNumber');
   var disabledAvailability = document.getElementById('disabledAvail');
+  var nextBus              = "nextbus";
 
   setInterval(function()
   {
@@ -80,8 +81,7 @@ function requestResponse(map, marker, markerBusStop)
 
           latestEntryId = responseId;
 
-          // test.innerHTML = "HI";
-          debugWindow.innerHTML = "<h3>Debug Window</h3><br>" + response.id;
+          debugWindow.innerHTML = "<h3>Debug Window</h3><br>ID: " + response.id;
 
           /* Set the marker label to the corresponding bus number */
           // marker.setLabel("Bus ID: " + busId + ". Bus Number: " + response.number);
@@ -91,11 +91,10 @@ function requestResponse(map, marker, markerBusStop)
                            color: "black"
                          });
           moveMarker(map, marker, position);
-          console.log(busNumber);
-          busNumber.innerHTML = number;
-          timeToArrive.innerHTML = getTimeToArrive(position, markerBusStop);
-          disabledAvailability.innerHTML = availability;
 
+          busNumber.innerHTML = number;
+          disabledAvailability.innerHTML = availability;
+          timeToArrive.innerHTML = getTimeToArrive(position, markerBusStop);
         }
         catch (e)
         {
@@ -150,7 +149,6 @@ function moveMarker(map, marker, position)
     // console.log("l: " + position.lng)
 }
 
-
 /*
  * Displays the current time in the information board.
 */
@@ -189,7 +187,7 @@ function zeroPad(t)
   return timeElem;
 }
 
-var gb = 0;
+var globalTimeToArrive = 0;
 function getTimeToArrive(start, end)
 {
   var begin       = JSON.stringify(start);
@@ -209,7 +207,7 @@ function getTimeToArrive(start, end)
     if(status == "OK")
     {
       result = response.rows[0].elements[0].duration.text;
-      gb = result;
+      globalTimeToArrive = result;
       // return g;
       // debugWindow.innerHTML += "<br />" + result;
       // console.log("ETA: " + result);
@@ -222,7 +220,7 @@ function getTimeToArrive(start, end)
   });
 
   // console.log("Result OUTSIDE: " + gb);
-  return gb;
+  return globalTimeToArrive;
 
   // console.log(origin);
   // console.log(destination);
