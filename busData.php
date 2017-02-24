@@ -39,10 +39,6 @@
 // }
 //
 //
-// function queries()
-// {
-//
-// }
 
 // getLatestBusData();
 // function getLatestBusData()
@@ -60,8 +56,8 @@
 //   }
 // }
 
-testLatestBus();
-function testLatestBus()
+getLatestRow();
+function getLatestRow()
 {
   $reqString = $_REQUEST['ask'];
   include("dbCredentials.php");
