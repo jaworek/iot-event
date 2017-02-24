@@ -44,19 +44,38 @@
 //
 // }
 
-getLatestBusData();
-function getLatestBusData()
+// getLatestBusData();
+// function getLatestBusData()
+// {
+//   $reqString = $_REQUEST['ask'];
+//   include("dbCredentials.php");
+//   include("dbConnect.php");
+//
+//   $query = $connection->query("SELECT * FROM busLocation WHERE id = $reqString;");
+//   while($r = $query->fetch(PDO::FETCH_ASSOC))
+//   {
+//     // echo($r['latitude'] . '<br />');
+//     // echo($r['longitude'] . '<br />');
+//     print_r(json_encode($r));
+//   }
+// }
+
+testLatestBus();
+function testLatestBus()
 {
   $reqString = $_REQUEST['ask'];
   include("dbCredentials.php");
   include("dbConnect.php");
 
-  $query = $connection->query("SELECT * FROM busLocation WHERE id = $reqString;");
-  while($r = $query->fetch(PDO::FETCH_ASSOC))
+  if($reqString == "nextbus")
   {
-    // echo($r['latitude'] . '<br />');
-    // echo($r['longitude'] . '<br />');
-    print_r(json_encode($r));
+    $query = $connection->query("SELECT * FROM busLocation ORDER BY id DESC LIMIT 1;");
+    while($r = $query->fetch(PDO::FETCH_ASSOC))
+    {
+      // echo($r['latitude'] . '<br />');
+      // echo($r['longitude'] . '<br />');
+      print_r(json_encode($r));
+    }
   }
 }
 

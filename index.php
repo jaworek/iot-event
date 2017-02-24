@@ -23,19 +23,30 @@ require("dbCredentials.php");
       <aside class="information">
           <h2 id="time">Time</h2>
           <h2><i class="fa fa-bus" aria-hidden="true"></i> Bus stop: "name"</h2>
-          <ul>
+          <!-- <ul> -->
 
             <!-- Buses that stop at this station -->
             <?php
-              include("dbConnect.php");
-              $query = $connection->query("SELECT DISTINCT number FROM busLocation;");
-              while($r = $query->fetch(PDO::FETCH_ASSOC))
-              {
-                echo '<li>' , $r['number'], '</li>';
-              }
+              // include("dbConnect.php");
+              // $query = $connection->query("SELECT DISTINCT number FROM busLocation;");
+              // while($r = $query->fetch(PDO::FETCH_ASSOC))
+              // {
+              //   echo '<li>' , $r['number'], '</li>';
+              // }
             ?>
-
-          </ul>
+          <!-- </ul> -->
+          <table>
+            <tr>
+              <th>Bus Num</th>
+              <th>Disabled Access Available</th>
+              <th>Time to Arrive</th>
+            </tr>
+            <tr>
+              <td id="busNumber"></td>
+              <td id="disabledAvail"></td>
+              <td id="timeToArrive"></td>
+            </tr>
+          </table>
       </aside>
   </main>
 
@@ -44,6 +55,9 @@ require("dbCredentials.php");
       <h3>More Info</h3>
     </div>
   </div>
+  <!-- johns api = AIzaSyB7WluhIDRtJqac_gtcALqmhfnVHtXt-Hw -->
+  <!-- ife's api web = AIzaSyCn1__lWq1vj-hTGHdduYoMxxgMtjC02gY-->
+  <!-- ife's distance matrix api = AIzaSyDk6lx62wdIhi7rVF4ZmeZgPWoWKKmAvUU -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7WluhIDRtJqac_gtcALqmhfnVHtXt-Hw&callback=initMap"></script>
 </body>
 

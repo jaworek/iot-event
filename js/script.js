@@ -34,12 +34,10 @@ function initMap()
   title: ""
   });
 
-  // var g = google.maps.MarkerLabel({color: "red"});
-
   markerCurrentBusStop.setMap(map);
   markerBus.setMap(map);
-  // console.log(positions[0]);
-  requestResponse(map, markerBus);
+
+  requestResponse(map, markerBus, markerCurrentBusStop);
 }
 
 /*
@@ -48,13 +46,17 @@ function initMap()
  * @param marker - Google maps marker object for use in moveMarker parameter
 */
 var latestBusEntryId = 7;
-function requestResponse(map, marker)
+var nextBus = "nextbus";
+function requestResponse(map, marker, markerBusStop)
 {
-  var READY_STATE_DONE =   4; /* request finished and response is ready */
-  var SUCCESS          = 200; /* "OK" */
-  var debugWindow      = document.getElementById("debugWindow");
-  var information      = document.getElementsByClassName("information");
-  var test      = document.getElementById("test");
+  var READY_STATE_DONE     =   4; /* request finished and response is ready */
+  var SUCCESS              = 200; /* "OK" */
+  var debugWindow          = document.getElementById("debugWindow");
+  var information          = document.getElementsByClassName("information");
+  var test                 = document.getElementById("test");
+  var timeToArrive         = document.getElementById('timeToArrive');
+  var busNumber            = document.getElementById('busNumber');
+  var disabledAvailability = document.getElementById('disabledAvail');
 
   setInterval(function()
   {
@@ -67,13 +69,17 @@ function requestResponse(map, marker)
         try
         {
           /* Convert text to JSON object*/
-          var response   = JSON.parse(request.responseText);
-          var lng        = response.longitude;
-          var lat        = response.latitude;
-          var position   = {lng, lat};
-          var busId      = response.busid;
-          var responseId = parseInt(response.id);
+          var response     = JSON.parse(request.responseText);
+          var lng          = response.longitude;
+          var lat          = response.latitude;
+          var position     = {lat, lng};
+          var busId        = response.busid;
+          var number       = response.number;
+          var availability = response.availability;
+          var responseId   = parseInt(response.id);
+
           latestEntryId = responseId;
+
           // test.innerHTML = "HI";
           debugWindow.innerHTML = "<h3>Debug Window</h3><br>" + response.id;
 
@@ -85,6 +91,11 @@ function requestResponse(map, marker)
                            color: "black"
                          });
           moveMarker(map, marker, position);
+          console.log(busNumber);
+          busNumber.innerHTML = number;
+          timeToArrive.innerHTML = getTimeToArrive(position, markerBusStop);
+          disabledAvailability.innerHTML = availability;
+
         }
         catch (e)
         {
@@ -101,15 +112,15 @@ function requestResponse(map, marker)
         /* This is to test how the marker moves along the map
          * by artificially stepping through the database id's
         */
-        latestBusEntryId++;
-        if(latestBusEntryId == 102)
-        {
-          latestBusEntryId = 105;
-        }
-        console.log(latestBusEntryId);
+        // latestBusEntryId++;
+        // if(latestBusEntryId == 102)
+        // {
+        //   latestBusEntryId = 105;
+        // }
+        // console.log(latestBusEntryId);
       }
     }
-    request.open("POST", "busData.php?ask=" + latestBusEntryId, true);
+    request.open("POST", "busData.php?ask=" + nextBus, true);
     request.send();
 
   }, 1000)
@@ -176,6 +187,45 @@ function zeroPad(t)
   // console.log("Time type: " + typeof(timeElem));
 
   return timeElem;
+}
+
+var gb = 0;
+function getTimeToArrive(start, end)
+{
+  var begin       = JSON.stringify(start);
+  var lat         = end.getPosition().lat();
+  var lng         = end.getPosition().lng();
+  var origin      = {lat: parseFloat(start.lat), lng: parseFloat(start.lng)};
+  var destination = {lat: lat, lng: lng};
+  var distance    = new google.maps.DistanceMatrixService();
+  var request     = {origins     : [origin],
+                     destinations: [destination],
+                     travelMode  : "TRANSIT",
+                     unitSystem  : google.maps.UnitSystem.IMPERIAL};
+  var debugWindow      = document.getElementById("debugWindow");
+
+  distance.getDistanceMatrix(request, function(response, status)
+  {
+    if(status == "OK")
+    {
+      result = response.rows[0].elements[0].duration.text;
+      gb = result;
+      // return g;
+      // debugWindow.innerHTML += "<br />" + result;
+      // console.log("ETA: " + result);
+
+    }
+    else
+    {
+        console.log("Something went wrong");
+    }
+  });
+
+  // console.log("Result OUTSIDE: " + gb);
+  return gb;
+
+  // console.log(origin);
+  // console.log(destination);
 }
 
 showTime();
