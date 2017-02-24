@@ -41,13 +41,13 @@ require("dbCredentials.php");
 
   <div class="moreInfo">
     <div class="advert" id="bottom">
-      advert
+      <img src="images/1.jpg" alt="">
     </div>
     <div class="advert">
-      advert
+      <img src="images/2.jpg" alt="">
     </div>
     <div class="advert">
-      advert
+      <img src="images/3.jpg" alt="">
     </div>
   </div>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7WluhIDRtJqac_gtcALqmhfnVHtXt-Hw&callback=initMap"></script>
