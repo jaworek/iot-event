@@ -32,8 +32,8 @@ h2
 
 img
 {
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 100%;
 }
 
 .map
@@ -57,12 +57,14 @@ img
 
 .advert
 {
-    width: 30vw;
+    /*width: 30vw;*/
     height: 19vh;
     margin: .5vh;
 
     color: white;
-    background: black;
+    background: white;
+    display: flex;
+    justify-content: center;
 }
 
 #debugWindow
