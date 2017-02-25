@@ -230,19 +230,33 @@ showTime();
 
 // ad slideshow
 var number = 1;
+var images = [];
+
 function changeSlide()
 {
     if (number > 3)
     {
         number = 1;
     }
+var num = number;
+for (var i = 0; i < 3; i++)
+{
+    if (num > 3)
+    {
+      //number = 1;
+      num = 1;
+    }
+    images[i] = '<img src="images/' + num + '.jpg">';
+    document.getElementById('ad' + i).innerHTML = images[i];
+    num++;
+}
+    // var file = '<img src="images/' + number + '.jpg">';
 
-    var file = '<img src="images/' + number + '.jpg">';
-
-    document.getElementById('slider').innerHTML = file;
+    // document.getElementById('slider').innerHTML = file;
 
     number++;
-    setTimeout(changeSlide, 5000);
 }
 
-document.addEventListener('DOMContentLoaded', changeSlide);
+document.addEventListener('DOMContentLoaded', function () {
+  setInterval(changeSlide, 5000);
+});
