@@ -118,11 +118,11 @@ function requestResponse(map, marker, markerBusStop)
         // }
         // console.log(latestBusEntryId);
       }
-    }
+    };
     request.open("POST", "busData.php?ask=" + nextBus, true);
     request.send();
 
-  }, 1000)
+  }, 1000);
 
 }
 
@@ -165,7 +165,7 @@ function showTime()
     time.innerHTML = (zeroPad(hours) + ":" + zeroPad(mins) + ":" + zeroPad(secs));
     // console.log(hours + ":" + mins + ":" + secs);
     // console.log(typeof(secs));
-  }, 1000)
+  }, 1000);
 }
 
 /*
@@ -227,3 +227,22 @@ function getTimeToArrive(start, end)
 }
 
 showTime();
+
+// ad slideshow
+var number = 1;
+function changeSlide()
+{
+    if (number > 3)
+    {
+        number = 1;
+    }
+
+    var file = '<img src="images/' + number + '.jpg">';
+
+    document.getElementById('slider').innerHTML = file;
+
+    number++;
+    setTimeout(changeSlide, 5000);
+}
+
+document.addEventListener('DOMContentLoaded', changeSlide);

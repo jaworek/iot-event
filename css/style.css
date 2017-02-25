@@ -61,7 +61,7 @@ img
     height: 19vh;
     margin: .5vh;
 
-    color: white;
+    /*color: white;*/
     background: white;
     display: flex;
     justify-content: center;

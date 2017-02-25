@@ -51,8 +51,8 @@ require("dbCredentials.php");
   </main>
 
   <div class="moreInfo">
-    <div class="advert" id="bottom">
-      <img src="images/1.jpg" alt="">
+    <div id="slider" class="advert">
+
     </div>
     <div class="advert">
       <img src="images/2.jpg" alt="">
