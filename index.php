@@ -22,7 +22,7 @@ require("dbCredentials.php");
       <div id="debugWindow"><h3>Debug Window</h3></div>
       <aside class="information">
           <h2 id="time">Time</h2>
-          <h2><i class="fa fa-bus" aria-hidden="true"></i> Bus stop: "name"</h2>
+          <h2><i class="fa fa-bus" aria-hidden="true"></i> Bus stop: "The Close"</h2>
           <!-- <ul> -->
 
             <!-- Buses that stop at this station -->

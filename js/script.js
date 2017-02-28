@@ -164,7 +164,7 @@ function showTime()
 {
   setInterval(function()
   {
-    var time = document.getElementById("time");
+    var time  = document.getElementById("time");
     var now   = new Date();
     var hours = now.getHours();
     var mins  = now.getMinutes();
@@ -208,7 +208,7 @@ function getTimeToArrive(start, end)
                      destinations: [destination],
                      travelMode  : "TRANSIT",
                      unitSystem  : google.maps.UnitSystem.IMPERIAL};
-  var debugWindow      = document.getElementById("debugWindow");
+  var debugWindow = document.getElementById("debugWindow");
 
   distance.getDistanceMatrix(request, function(response, status)
   {
