@@ -79,9 +79,10 @@ img
     border-bottom: 1px solid black;
 }
 
-.busInfo
+tr td
 {
-  padding-top: 0.5em;
+  padding-top: 15px;
+  font-weight: bold;
   /*padding: 0.25em;*/
 }
 
@@ -92,6 +93,7 @@ td
 
 #debugWindow
 {
+  display: none;
     position: absolute;
 
     overflow: scroll;
