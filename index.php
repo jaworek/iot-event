@@ -35,13 +35,13 @@ require("dbCredentials.php");
               // }
             ?>
           <!-- </ul> -->
-          <table>
-            <tr>
+          <table class="table">
+            <tr class="header">
               <th>Bus Num</th>
               <th>Disabled Access Availability</th>
               <th>Time to Arrive</th>
             </tr>
-            <tr>
+            <tr class="busInfo">
               <td id="busNumber"></td>
               <td id="disabledAvail"></td>
               <td id="timeToArrive"></td>
