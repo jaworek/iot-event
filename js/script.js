@@ -3,7 +3,7 @@ function initMap()
 {
   var testMark = {lat: 52.2429457, lng: -0.901148};
 
-  var center = {lat: 52.239596, lng: -0.8983567};
+  var center = {lat: 52.267992, lng: -0.895430};
 
   // var positions = [testMark,center];
 
@@ -45,7 +45,7 @@ function initMap()
  * @param map - Google maps object for use in moveMarker parameter
  * @param marker - Google maps marker object for use in moveMarker parameter
 */
-var latestBusEntryId = 7;
+var latestBusEntryId = 80; //170 end
 
 function requestResponse(map, marker, markerBusStop)
 {
@@ -111,15 +111,23 @@ function requestResponse(map, marker, markerBusStop)
         /* This is to test how the marker moves along the map
          * by artificially stepping through the database id's
         */
-        // latestBusEntryId++;
+
         // if(latestBusEntryId == 102)
         // {
         //   latestBusEntryId = 105;
         // }
-        // console.log(latestBusEntryId);
+        if(latestBusEntryId == 170)
+        {
+          latestBusEntryId == 170;
+        }
+        else
+        {
+          latestBusEntryId++;
+        }
+        console.log(latestBusEntryId);
       }
     };
-    request.open("POST", "busData.php?ask=" + nextBus, true);
+    request.open("POST", "busData.php?ask=" + latestBusEntryId, true);
     request.send();
 
   }, 1000);

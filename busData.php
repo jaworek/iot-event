@@ -63,16 +63,16 @@ function getLatestRow()
   include("dbCredentials.php");
   include("dbConnect.php");
 
-  if($reqString == "nextbus")
-  {
-    $query = $connection->query("SELECT * FROM busLocation ORDER BY id DESC LIMIT 1;");
+  // if($reqString == "nextbus")
+  // {
+    $query = $connection->query("SELECT * FROM busLocationdemo WHERE id = $reqString;");
     while($r = $query->fetch(PDO::FETCH_ASSOC))
     {
-      // echo($r['latitude'] . '<br />');
+      // echo("Lat is: " . $r['latitude'] . '<br />');
       // echo($r['longitude'] . '<br />');
       print_r(json_encode($r));
     }
-  }
+  // }
 }
 
 // testRequest();
